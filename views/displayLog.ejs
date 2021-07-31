@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+        body {
+            background-position: left top;
+            background-image: url(./assets/img/mountain_bg.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .radio{
+            color: whitesmoke;
+        }
+        </style>
+</head>
+<body>
+    <h1 class="text-center mt-5" style="color: whitesmoke;">LOG ANALYSER</h1>
+
+    <div class="container mt-4 text-center">
+    
+        
+        <form action="/filter" method="post">
+            <div class="row ">
+                <div class="col">
+                    <h4 style="color: whitesmoke;">Filter</h4>
+                </div>
+                <div class="col">
+                    <input type="radio" name="filterData" id="filter" value="Error"><label for="Error" class="radio">Error</label>
+                </div>
+                <div class="col">
+                    <input type="radio" name="filterData" id="filter" value="Warn"><label for="Warn" class="radio" >Warn</label>
+                </div>
+                <div class="col">
+                    <input type="radio" name="filterData" id="filter" value="Debug"><label for="Debug" class="radio" >Debug</label>
+                </div>
+                <div class="col">
+                    <input type="radio" name="filterData" id="filter" value="All"><label for="Debug" class="radio" >All</label>
+                </div>
+                <div class="col">
+                    <button class="btn btn-success" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    
+    
+    <table class="table table-striped table-dark mt-3" id="example">
+        <thead>
+          <tr>
+            
+            <th scope="col">USER-NAME</th>
+            <th scope="col">IP-ADDRESS</th>
+            <th scope="col">REQUEST</th>
+            <th scope="col">API-DEFINITION</th>
+            <th scope="col">INFO</th>
+            <th scope="col">TIME STAMP</th>
+          </tr>
+        </thead>
+        <tbody>
+           
+            <% for(var i=0;i<10 && i< result.length ;i++){ var data=result[i]; %>
+                <tr>
+                    <td><%=data.USERNAME %></td>
+                    <td><%=data.IP %></td>
+                    <td><%=data.REQUEST %></td>
+                    <td><%=data.API %></td>
+                    <% if(data.INFO.toUpperCase()=='ERROR'){ %>
+                        <td style="color: red;"><%=data.INFO %></td>
+                    <% } else if(data.INFO.toUpperCase()=='WARN'){ %>
+                        <td style="color: yellow;"><%=data.INFO %></td>
+                    <% } else{%>
+                        <td style="color: green;"><%=data.INFO %></td>
+                    <% } %>
+                    <td><%=data.TimeStamp %></td>
+                </tr>
+
+                
+           <% } %>
+        </tbody>
+      </table>
+    <h3 class="text-center mt-5" style="color: whitesmoke;">IP Counts</h3>
+
+      <table class="table table-striped table-dark ">
+        <thead>
+          <tr>
+            
+            
+            <th scope="col">IP-ADDRESS</th>
+            <th scope="col">Count</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+            <% IPCount.forEach(function(data){ %>
+                <tr>
+                    
+                    <td><%=data[0] %></td>
+                    <td><%=data[1] %></td>
+                    
+                </tr>
+           <% }) %>
+        </tbody>
+      </table>
+    <a class="btn btn-primary btn-success m-5" href="/download">Download Full Report</a>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+            $('#example').DataTable();
+        });
+</script>
+</body>
+</html>
