@@ -14,6 +14,8 @@ Commands To Run The Project-
 
 Note- We support txt and log file as of now, will be implementing pdf,csvs in the future versions.
 
+If You Liked My Work Please Star This Repo, Have A Nice Day.
+
 
 
 
